@@ -2643,7 +2643,7 @@ def get_discussion_topics(doctype: str, docname: str, single_thread: bool = Fals
 		for row in frappe.get_all(
 			"Discussion Reply",
 			filters={"topic": ["in", [topic.name for topic in topics]]},
-			fields=["topic", "count(name) as count"],
+			fields=["topic", {"COUNT": "name", "as": "count"}],
 			group_by="topic",
 		):
 			reply_counts[row.topic] = row.count
